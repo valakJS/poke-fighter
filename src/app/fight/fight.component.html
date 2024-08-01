@@ -1,0 +1,104 @@
+<div class="content">
+  <form class="fx-column" [formGroup]="form" (ngSubmit)="calcular()">
+    <div class="fx-row">
+      <mat-card class="bg-primary">
+        <mat-card-header>
+          <mat-card-title>Pokémon A</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="fx-column">
+          <mat-form-field appereance="fill" color="primary">
+            <input type="text" placeholder="Tipo" matInput formControlName="tipoA" [matAutocomplete]="autoA">
+            <mat-autocomplete autoActiveFirstOption #autoA="matAutocomplete">
+              <mat-option *ngFor="let tipoA of tiposAfiltered | async" [value]="tipoA">
+                {{tipoA}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field color="primary">
+            <mat-label>Valor de ataque</mat-label>
+            <input matInput formControlName="valorA">
+          </mat-form-field>
+          <label>Nivel</label>
+          <mat-radio-group (change)="levelA = $event.value; calcular()" color="primary" class="fx-column">
+            <mat-radio-button class="example-radio-button" *ngFor="let level of levels" [value]="level">
+                {{level + 1}} (+{{level}})
+            </mat-radio-button>
+          </mat-radio-group>
+          <label>Evolución</label>
+          <mat-radio-group (change)="evoA = $event.value; calcular()" color="primary" class="fx-column">
+            <mat-radio-button class="example-radio-button" *ngFor="let evo of evolutions" [value]="evo.value">
+                {{evo.desc}} (+{{evo.value}})
+            </mat-radio-button>
+          </mat-radio-group>
+          <div *ngIf="this.form.controls.tipoA.value as tipoA">
+            <div class="multiplier warn" *ngIf="this.form.controls.tipoB.value as tipoB">
+              <span [ngSwitch]="getMultiplier(tipoA, tipoB)">
+                <p *ngSwitchCase="'2'">Super efectivo (x2)</p>
+                <p *ngSwitchCase="'1'"></p>
+                <p *ngSwitchCase="'0.5'">Poco efectivo (x1/2)</p>
+                <p *ngSwitchCase="'0'">No efectivo</p>
+              </span>
+            </div>
+          </div>
+          <div>
+            <div class="power primary">
+              {{ powerA !== undefined ? powerA : '-' }}
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <div class="mat-title text-center" style="margin: 50px;">VS.</div>
+      <mat-card class="bg-accent">
+        <mat-card-header>
+          <mat-card-title>Pokémon B</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="fx-column">
+          <mat-form-field appereance="fill" color="accent">
+            <input type="text" placeholder="Tipo" matInput formControlName="tipoB" [matAutocomplete]="autoB">
+            <mat-autocomplete autoActiveFirstOption #autoB="matAutocomplete">
+              <mat-option *ngFor="let tipoB of tiposBfiltered | async" [value]="tipoB">
+                {{tipoB}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Valor de ataque</mat-label>
+            <input matInput formControlName="valorB">
+          </mat-form-field>
+          <label>Nivel</label>
+          <mat-radio-group (change)="levelB = $event.value; calcular()" color="primary" class="fx-column">
+            <mat-radio-button class="example-radio-button" *ngFor="let level of levels" [value]="level">
+                {{level + 1}} (+{{level}})
+            </mat-radio-button>
+          </mat-radio-group>
+          <label>Evolución</label>
+          <mat-radio-group (change)="evoB = $event.value; calcular()" color="primary" class="fx-column">
+            <mat-radio-button class="example-radio-button" *ngFor="let evo of evolutions" [value]="evo.value">
+                {{evo.desc}} (+{{evo.value}})
+            </mat-radio-button>
+          </mat-radio-group>
+          <div *ngIf="this.form.controls.tipoA.value as tipoA">
+            <div class="multiplier warn" *ngIf="this.form.controls.tipoB.value as tipoB">
+              <span [ngSwitch]="getMultiplier(tipoB, tipoA)">
+                <p *ngSwitchCase="'2'">Super efectivo (x2)</p>
+                <p *ngSwitchCase="'1'"></p>
+                <p *ngSwitchCase="'0.5'">Poco efectivo (x1/2)</p>
+                <p *ngSwitchCase="'0'">No efectivo</p>
+              </span>
+            </div>
+          </div>
+          <div>
+            <div class="power accent">
+              {{ powerB !== undefined ? powerB : '-' }}
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div style="text-align: center;">
+      <button style="width: 200px" mat-raised-button color="accent">
+        Fight!
+      </button>
+    </div>
+  </form>
+</div>

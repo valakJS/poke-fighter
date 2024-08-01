@@ -1,0 +1,60 @@
+@import '~@angular/material/theming';
+@include mat-core();
+$primary: mat-palette($mat-indigo);
+$accent:  mat-palette($mat-deep-purple, A200, A100, A400);
+$warn:  mat-palette($mat-grey);
+
+.content {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.fx-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  &>* {
+    margin-right: 20px;
+  }
+}
+
+.fx-column {
+  display: flex;
+  flex-direction: column;
+  &>* {
+    margin-bottom: 20px;
+  }
+}
+
+.multiplier {
+  font-weight: 600;
+  margin: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.power {
+  margin: 30px;
+  font-size: 80px;
+  text-align: center;
+}
+
+.bg-primary {
+  background-color: mat-color($primary, 50)
+}
+.bg-accent {
+  background-color: mat-color($accent, 50)
+}
+.primary {
+  color: mat-color($primary, 500)
+}
+.accent {
+  color: mat-color($accent, 500)
+}
+.warn {
+  color: mat-color($warn, 700)
+}
